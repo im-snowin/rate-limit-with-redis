@@ -1,4 +1,3 @@
-import {redis} from './redis-client'
 const redis = require('./redis-client')
 
 export default function rateLimiter({expiresIn, allowedRequests}) {
