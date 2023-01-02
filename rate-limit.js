@@ -3,9 +3,7 @@ const redis = require('./redis-client')
 function rateLimiter({expiresIn, allowedRequests}) {
     return  async function (req, res, next) {
         /* Get the IP from user */
-        const ip = req.headers['x-forward-for'] || req.socket.remoteAddress;
-    
-        // if(!ip || ip !== 'undefined') return new Error('IP not found')
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
         const request = await redis.incr(ip)
         
         let ttl;
